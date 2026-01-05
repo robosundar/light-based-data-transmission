@@ -1,0 +1,27 @@
+const int sensorPin = A0;
+int threshold = 500;
+
+void setup() {
+  Serial.begin(9600);
+}
+
+void loop() {
+  char receivedChar = 0;
+
+  for (int i = 0; i < 8; i++) {
+    int sensorValue = analogRead(sensorPin);
+
+    if (sensorValue > threshold) {
+      bitSet(receivedChar, i);
+    } else {
+      bitClear(receivedChar, i);
+    }
+
+    delay(200);
+  }
+
+  Serial.print("Received Character: ");
+  Serial.println(receivedChar);
+
+  delay(1000);
+}
